@@ -1,13 +1,13 @@
 package com.pluralsight;
 
-public class TransactionHolder {
+public class Transaction {
     private int date;
     private int time;
     private String description;
     private String vendor;
     private double amount;
 
-    public TransactionHolder(int date, int time, String description, String vendor, double amount) {
+    public Transaction(int date, int time, String description, String vendor, double amount) {
         this.date = date;
         this.time = time;
         this.description = description;
@@ -58,10 +58,10 @@ public class TransactionHolder {
     public static void startingMenu() {
         System.out.println("""
                 Welcome! Please make your Selection:
-                1) Deposit
-                2) Payment
-                3) Ledger
-                4) Exit""");
+                A) Deposit
+                B) Payment
+                C) Ledger
+                D) Exit""");
     }
 
     @Override
@@ -75,4 +75,14 @@ public class TransactionHolder {
         sb.append('}');
         return sb.toString();
     }
+
+//    public void display() {
+//        System.out.println("""
+//                Welcome! Please make your Selection:
+//                1) Deposit
+//                2) Payment
+//                3) Ledger
+//                4) Exit
+//                """);
+//    }
 }
