@@ -253,7 +253,7 @@ public class App {
 
         Scanner scanner = new Scanner(System.in);
         String choice = scanner.nextLine().trim().toUpperCase();
-        
+
         switch (choice) {
                 case "1":
                    displayTransactions(transactions);
@@ -274,7 +274,7 @@ public class App {
         }
 
     private static ArrayList<Transaction> filterPayments(ArrayList<Transaction> transactions) {
-        //this came from chatgpt when I asked it for help with fixing my code
+        //this came from chatgpt when I asked it for help with fixing my code but it doesn't look familiar to me at the moment
         ArrayList<Transaction> payments = new ArrayList<>();
         for (Transaction t : transactions) {
             if (t.getAmount() < 0) payments.add(t);
