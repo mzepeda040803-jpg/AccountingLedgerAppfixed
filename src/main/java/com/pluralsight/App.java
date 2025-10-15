@@ -1,9 +1,11 @@
 package com.pluralsight;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.SQLOutput;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Pattern;
@@ -13,6 +15,7 @@ public class App {
 
     public static void main(String[] args) {
         startingMenu();
+  //      scanner.close();
 
     }
 
@@ -21,23 +24,40 @@ public class App {
         boolean running = true;
 
         while (running) {
-            displayMenu();
-            System.out.println("Please make a selection: ");
-            int choice = myscanner.nextInt();
-            myscanner.nextLine();
+//            System.out.println("Home Menu");
+//            System.out.println("1) Add Deposit");
+//            System.out.println("2) Make Payment");
+//            System.out.println("3) Ledger");
+//            System.out.println("4 Exit");
+//            System.out.println("Enter you choice: ");
+
+            System.out.println("""
+                    Welcome! PLease make a selection:
+                    1) Add Deposit
+                    2) Make Payment
+                    3) Ledger
+                    4) Exit""");
+
+//            displayMenu();
+//            System.out.println("Please make a selection: ");
+//            int choice = myscanner.nextInt();
+//            myscanner.nextLine();
+
+            String choice = myscanner.nextLine().trim();
 
             switch (choice) {
-                case 1:
-                    deposit();
+                case "1":
+                    addDeposits();
                     break;
-                case 2:
-                    payment();
+                case "2":
+                    makePayment();
                     break;
-                case 3:
+                case "3":
                     ledger();
                     break;
-                case 4:
-                    exit();
+                case "4":
+                    running = false;
+                    System.out.println("Thank you, come again");
                     break;
                 default:
                     System.out.println("Please make a different selection");
@@ -45,16 +65,17 @@ public class App {
             }
             //left in for spacing
             System.out.println();
+            myscanner.close();
         }
+
     }
 
     public static void displayMenu() {
-        System.out.println("""
-                Welcome! Please make your selection:
-                1) Deposit
-                2) Payment
-                3) Ledger
-                4) Exit""");
+        System.out.println("Welcome! Please make your selection: ");
+        System.out.println("(1) Deposit");
+        System.out.println("(2) Payment");
+        System.out.println("(3) Ledger");
+        System.out.println("(4) Exit");
 
         ArrayList<Transaction> transactions = readTransactionsFromFile();
         displayTransactions(transactions);
@@ -64,12 +85,13 @@ public class App {
     }
 
     private static void displayTransactions(ArrayList<Transaction> transactions) {
-        //rename
-        for (Transaction exchange: transactions){
-            System.out.println(transactions);
-
-
+        for (int i = transactions.size()-1; i >= 0; i--) {
+            System.out.println(transactions.get(i));
         }
+        //rename
+//        for (Transaction exchange: transactions){
+//            System.out.println(transactions);
+//        }
     }
 
     private static ArrayList<Transaction> readTransactionsFromFile() {
@@ -85,13 +107,9 @@ public class App {
             while ((line = bufferedReader.readLine()) != null){
                 String[] parts = line.split(Pattern.quote("|"));
 
-                Transaction transaction = new Transaction();
+                String date = parts[0];
 
-                String dateAsString = parts[0];
-                int date = Integer.parseInt(dateAsString);
-
-                String timeAsString = parts[1];
-                int time = Integer.parseInt(timeAsString);
+                String time = parts[1];
 
                 String description = parts[2];
 
@@ -99,6 +117,9 @@ public class App {
 
                 String amountAsString = parts[4];
                 double amount = Double.parseDouble(amountAsString);
+// come back later
+                Transaction transaction = new Transaction();
+                transactions.add(transaction);
 
             }
 
@@ -113,38 +134,35 @@ public class App {
         return transactions;
     }
 
-    public static void deposit() {
-        boolean running = true;
+    public static void addDeposits() {
+        Scanner scanner = new Scanner(System.in);
 
-        while (running) {
-            displayDeposits();
-            System.out.println("Please choose an option");
-            int choice = scanner.nextInt();
+        System.out.println("Enter Description: ");
+        String description = scanner.nextLine();
 
-            switch (choice) {
-                case 1:
-                    System.out.println("Make a deposit?");
-                    addDeposits();
-                    break;
-                case 2:
-                    System.out.println("View deposit history?");
-                    displayDeposits();
-                case 3:
-                    System.out.println("Return to main menu?");
-                   // if (choice ==3)
-                    displayMenu();
-                default:
-                    System.out.println("Please make another selection");
-            }
-            //spacing
-            System.out.println();
-        }
+        System.out.println("Enter vendor: ");
+        String vendor = scanner.nextLine();
+
+        System.out.println("Enter amount: ");
+        double amount = scanner.nextDouble();
+        scanner.nextLine();
+
+        String date = LocalDate.now().toString();
+        String time = LocalTime.now().toString();
+
+        Transaction deposit = new Transaction();
+        writeTransactionToFile(deposit);
+
+        System.out.println("Deposit added");
+
     }
 
-    private static void addDeposits() {
+    private static void writeTransactionToFile(Transaction deposit) {
     }
+
 
     private static void displayDeposits() {
+        Scanner scanner = new Scanner(System.in);
         boolean running = true;
 
         while (running) {
@@ -168,70 +186,104 @@ public class App {
             //spacing
             System.out.println();
         }
+
+        
+
+
+
+
+
+
+
     }
 
-    private static void payment() {
-        boolean running = true;
-
-        while (running) {
-            displayDeposits();
-            System.out.println("Please choose an option");
-            int choice = scanner.nextInt();
-
-            switch (choice) {
-                case 1:
-                    makepayment();
-                    System.out.println("Make a payment");
-                    break;
-                case 2:
-                    System.out.println("View payment history?");
-                   displayTransactions();
-                    break;
-                case 3:
-                    System.out.println("Return to main menu?");
-                    // if (choice ==3)
-                    displayMenu();
-                default:
-                    System.out.println("Please make another selection");
-            }
-            //spacing
-            System.out.println();
-        }
+    private static void displayTransactions() {
+        //parse
     }
 
-    private static void makepayment() {
+    private static void makePayment() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Enter Description: ");
+        String description = scanner.nextLine();
+
+        System.out.println("Enter Vendor: ");
+        String vendor = scanner.nextLine();
+
+        System.out.println("Enter amount: ");
+        double amount = scanner.nextDouble();
+        scanner.nextLine();
+
+        String date = LocalDate.now().toString();
+        String time = LocalTime.now().toString();
+
+        System.out.println("Payment processed");
+
+
+
+//        while (running) {
+//            displayDeposits();
+//            System.out.println("Please choose an option");
+//            int choice = scanner.nextInt();
+//
+//            switch (choice) {
+//                case 1:
+//                    makePayment();
+//                    System.out.println("Make a payment");
+//                    break;
+//                case 2:
+//                    System.out.println("View payment history?");
+//                   displayTransactions();
+//                    break;
+//                case 3:
+//                    System.out.println("Return to main menu?");
+//                    // if (choice ==3)
+//                    displayMenu();
+//                default:
+//                    System.out.println("Please make another selection");
+//            }
+//            //spacing
+//            System.out.println();
+//        }
     }
+
 
     private static void ledger() {
-        boolean running = true;
+        ArrayList<Transaction> transactions = readTransactionsFromFile();
 
-        while (running) {
-            displayDeposits();
-            System.out.println("Please choose an option");
-            int choice = scanner.nextInt();
+        System.out.println("""
+                Ledger Menu: Please make a selection 
+                1) All
+                2) Deposits
+                3) Payments
+                4) Main Menu""");
 
-            switch (choice) {
-                case 1:
-                    System.out.println("View ledger history?");
-                    displayledger();
+        Scanner scanner = new Scanner(System.in);
+        String choice = scanner.nextLine().trim().toUpperCase();
+        
+        switch (choice) {
+                case "1":
+                   displayTransactions(transactions);
                     break;
                     //menu for transactions, parse info
-                case 2:
-                    System.out.println("Return to main menu?");
-                    // if (choice ==2)
-                    displayMenu();
+                case "2":
+                    displayTransactions(filterDeposits(transactions));
                 default:
                     System.out.println("Please make another selection");
             }
             //spacing
             System.out.println();
         }
-    }
 
-    private static void displayledger() {
+    private static ArrayList<Transaction> filterDeposits(ArrayList<Transaction> transactions) {
+    }
+}
+
+    private static void displayLedger() {
     }
 
     private static void exit() {
+        Scanner scanner = new Scanner(System.in);
         boolean running = true;
 
         while (running) {
@@ -240,13 +292,12 @@ public class App {
             int choice = scanner.nextInt();
 
             switch (choice) {
-
-                case 2:
+                case 1:
                     System.out.println("Return to main menu?");
                     displayMenu();
-                case 3:
+                case 2:
                     System.out.println("Exit");
-                    System.out.println("Information save, Goodbye");
+                    System.out.println("Information saved, Goodbye");
                     displayMenu();
                 default:
                     System.out.println("Please make another selection");
@@ -256,7 +307,9 @@ public class App {
         }
     }
 
+
     private static class Transaction {
+
 
     }
 }

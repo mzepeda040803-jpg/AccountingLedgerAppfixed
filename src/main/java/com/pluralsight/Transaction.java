@@ -1,13 +1,13 @@
 package com.pluralsight;
 
 public class Transaction {
-    private int date;
-    private int time;
+    private String date;
+    private String time;
     private String description;
     private String vendor;
     private double amount;
 
-    public Transaction(int date, int time, String description, String vendor, double amount) {
+    public Transaction(String date, String time, String description, String vendor, double amount) {
         this.date = date;
         this.time = time;
         this.description = description;
@@ -15,19 +15,19 @@ public class Transaction {
         this.amount = amount;
     }
 
-    public int getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(int date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
-    public int getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(int time) {
+    public void setTime(String time) {
         this.time = time;
     }
 
@@ -55,26 +55,31 @@ public class Transaction {
         this.amount = amount;
     }
 
-    public static void startingMenu() {
-        System.out.println("""
-                Welcome! Please make your Selection:
-                A) Deposit
-                B) Payment
-                C) Ledger
-                D) Exit""");
-    }
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("TransactionHolder{");
-        sb.append("date=").append(date);
-        sb.append(", time=").append(time);
-        sb.append(", description='").append(description).append('\'');
-        sb.append(", vendor='").append(vendor).append('\'');
-        sb.append(", amount=").append(amount);
-        sb.append('}');
-        return sb.toString();
+        return date + "|" + time + "|" + description + "|" + vendor + "|" + amount;
     }
+
+
+
+
+//        final StringBuilder sb = new StringBuilder("TransactionHolder{");
+//        sb.append("date=").append(date);
+//        sb.append(", time=").append(time);
+//        sb.append(", description='").append(description).append('\'');
+//        sb.append(", vendor='").append(vendor).append('\'');
+//        sb.append(", amount=").append(amount);
+//        sb.append('}');
+//        return sb.toString();
+//    }
+
+
+
+
+
+
+
 
 //    public void display() {
 //        System.out.println("""
