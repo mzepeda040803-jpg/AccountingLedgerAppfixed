@@ -65,9 +65,8 @@ public class App {
             }
             //left in for spacing
             System.out.println();
-            myscanner.close();
         }
-
+    myscanner.close();
     }
 
     public static void displayMenu() {
@@ -118,7 +117,7 @@ public class App {
                 String amountAsString = parts[4];
                 double amount = Double.parseDouble(amountAsString);
 // come back later
-                Transaction transaction = new Transaction();
+                Transaction transaction = new Transaction(date, time, description, vendor, amount);
                 transactions.add(transaction);
 
             }
@@ -150,7 +149,7 @@ public class App {
         String date = LocalDate.now().toString();
         String time = LocalTime.now().toString();
 
-        Transaction deposit = new Transaction();
+        Transaction deposit = new Transaction(date, time, description, vendor, amount);
         writeTransactionToFile(deposit);
 
         System.out.println("Deposit added");
@@ -158,6 +157,7 @@ public class App {
     }
 
     private static void writeTransactionToFile(Transaction deposit) {
+
     }
 
 
@@ -186,13 +186,6 @@ public class App {
             //spacing
             System.out.println();
         }
-
-        
-
-
-
-
-
 
 
     }
@@ -268,6 +261,11 @@ public class App {
                     //menu for transactions, parse info
                 case "2":
                     displayTransactions(filterDeposits(transactions));
+                    break;
+                case "3":
+                    displayTransactions(filterPayments(transactions));
+                case "4":
+                    return;
                 default:
                     System.out.println("Please make another selection");
             }
@@ -275,41 +273,59 @@ public class App {
             System.out.println();
         }
 
+    private static ArrayList<Transaction> filterPayments(ArrayList<Transaction> transactions) {
+        //this came from chatgpt when I asked it for help with fixing my code
+        ArrayList<Transaction> payments = new ArrayList<>();
+        for (Transaction t : transactions) {
+            if (t.getAmount() < 0) payments.add(t);
+        }
+        return payments;
+    }
     private static ArrayList<Transaction> filterDeposits(ArrayList<Transaction> transactions) {
-    }
-}
-
-    private static void displayLedger() {
-    }
-
-    private static void exit() {
-        Scanner scanner = new Scanner(System.in);
-        boolean running = true;
-
-        while (running) {
-            displayDeposits();
-            System.out.println("Please choose an option");
-            int choice = scanner.nextInt();
-
-            switch (choice) {
-                case 1:
-                    System.out.println("Return to main menu?");
-                    displayMenu();
-                case 2:
-                    System.out.println("Exit");
-                    System.out.println("Information saved, Goodbye");
-                    displayMenu();
-                default:
-                    System.out.println("Please make another selection");
-            }
-            //spacing
-            System.out.println();
+        //this came from chatgpt when I asked it for help with fixing my code
+        ArrayList<Transaction> deposits = new ArrayList<>();
+        for (Transaction t : transactions) {
+            if (t.getAmount() > 0) deposits.add(t);
         }
-    }
-
-
-    private static class Transaction {
-
-
+        return deposits;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//        Scanner scanner = new Scanner(System.in);
+//        boolean running = true;
+//
+//        while (running) {
+//            displayDeposits();
+//            System.out.println("Please choose an option");
+//            int choice = scanner.nextInt();
+//
+//            switch (choice) {
+//                case 1:
+//                    System.out.println("Return to main menu?");
+//                    displayMenu();
+//                case 2:
+//                    System.out.println("Exit");
+//                    System.out.println("Information saved, Goodbye");
+//                    displayMenu();
+//                default:
+//                    System.out.println("Please make another selection");
+//            }
+            //spacing
+//            System.out.println();
+//        }
+//    }
+//}
