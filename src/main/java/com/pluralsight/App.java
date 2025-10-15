@@ -22,6 +22,7 @@ public class App {
 
         while (running) {
             displayMenu();
+            System.out.println("Please make a selection: ");
             int choice = myscanner.nextInt();
             myscanner.nextLine();
 
@@ -66,6 +67,8 @@ public class App {
         //rename
         for (Transaction exchange: transactions){
             System.out.println(transactions);
+
+
         }
     }
 
@@ -111,26 +114,149 @@ public class App {
     }
 
     public static void deposit() {
-//        boolean running = true;
-//
-//        while (running) {
-//            displayDeposits();
-//            System.out.println("Choose an option: ");
-//            String choice = scanner.nextLine().trim().t
-//
-//
-//        }
+        boolean running = true;
+
+        while (running) {
+            displayDeposits();
+            System.out.println("Please choose an option");
+            int choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    System.out.println("Make a deposit?");
+                    addDeposits();
+                    break;
+                case 2:
+                    System.out.println("View deposit history?");
+                    displayDeposits();
+                case 3:
+                    System.out.println("Return to main menu?");
+                   // if (choice ==3)
+                    displayMenu();
+                default:
+                    System.out.println("Please make another selection");
+            }
+            //spacing
+            System.out.println();
+        }
+    }
+
+    private static void addDeposits() {
+    }
+
+    private static void displayDeposits() {
+        boolean running = true;
+
+        while (running) {
+            displayDeposits();
+            System.out.println("Please choose an option");
+            int choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    System.out.println("View deposit history?");
+                    displayTransactions();
+                    break;
+                    //another menu for pulling info
+                case 2:
+                    System.out.println("Return to main menu?");
+                    // if (choice ==2)
+                    displayMenu();
+                default:
+                    System.out.println("Please make another selection");
+            }
+            //spacing
+            System.out.println();
+        }
     }
 
     private static void payment() {
+        boolean running = true;
+
+        while (running) {
+            displayDeposits();
+            System.out.println("Please choose an option");
+            int choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    makepayment();
+                    System.out.println("Make a payment");
+                    break;
+                case 2:
+                    System.out.println("View payment history?");
+                   displayTransactions();
+                    break;
+                case 3:
+                    System.out.println("Return to main menu?");
+                    // if (choice ==3)
+                    displayMenu();
+                default:
+                    System.out.println("Please make another selection");
+            }
+            //spacing
+            System.out.println();
+        }
+    }
+
+    private static void makepayment() {
     }
 
     private static void ledger() {
+        boolean running = true;
+
+        while (running) {
+            displayDeposits();
+            System.out.println("Please choose an option");
+            int choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    System.out.println("View ledger history?");
+                    displayledger();
+                    break;
+                    //menu for transactions, parse info
+                case 2:
+                    System.out.println("Return to main menu?");
+                    // if (choice ==2)
+                    displayMenu();
+                default:
+                    System.out.println("Please make another selection");
+            }
+            //spacing
+            System.out.println();
+        }
+    }
+
+    private static void displayledger() {
     }
 
     private static void exit() {
+        boolean running = true;
+
+        while (running) {
+            displayDeposits();
+            System.out.println("Please choose an option");
+            int choice = scanner.nextInt();
+
+            switch (choice) {
+
+                case 2:
+                    System.out.println("Return to main menu?");
+                    displayMenu();
+                case 3:
+                    System.out.println("Exit");
+                    System.out.println("Information save, Goodbye");
+                    displayMenu();
+                default:
+                    System.out.println("Please make another selection");
+            }
+            //spacing
+            System.out.println();
+        }
     }
 
     private static class Transaction {
+
     }
 }
