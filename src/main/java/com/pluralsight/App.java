@@ -152,27 +152,35 @@ public class App {
 
     }
 
-    private static void writeTransactionToFile(Transaction deposit) {
-
+    private static void writeTransactionToFile(Transaction t) {
+       try {
+           FileWriter filewriter = new FileWriter("transactions.csv", true);
+           BufferedWriter bufferedWriter = new BufferedWriter(filewriter)) {
+           bufferedWriter.write(t.toString());
+           bufferedWriter.newLine();
+           } catch (IOException e) {
+               System.out.println("Error commiting transaction to file");
+               e.printStackTrace();
+           }
+       }
     }
 
 
-    private static void displayDeposits() {
+    private static void displayTransactions() {
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
 
         while (running) {
             displayDeposits();
             System.out.println("Please choose an option");
-            int choice = scanner.nextInt();
+            String choice = scanner.nextLine();
 
             switch (choice) {
-                case 1:
+                case "1":
                     System.out.println("View deposit history?");
                     displayTransactions();
                     break;
-                    //another menu for pulling info
-                case 2:
+                case "2":
                     System.out.println("Return to main menu?");
                     // if (choice ==2)
                     displayMenu();
@@ -251,7 +259,6 @@ public class App {
                 case "1":
                    displayTransactions(transactions);
                     break;
-                    //menu for transactions, parse info
                 case "2":
                     displayTransactions(filterDeposits(transactions));
                     break;
@@ -271,6 +278,7 @@ public class App {
 
     private static void showReports(ArrayList<Transaction> transactions) {
         //came from chat, need help reforming it to school standards
+        Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.println("""
                     Reports Available
@@ -281,19 +289,46 @@ public class App {
                     5) Search by Vendor
                     6) Back
                     Choose an Option""");
-
-            String choice = scanner.nextline();
+//help here too
+            String choice = scanner.nextLine();
 
             LocalDate now = LocalDate.now();
-
+//help, chat was not as helpful i don't know what I'm doing :[
             switch (choice) {
                 case "1":
                     displayTransactions(transactions.stream()
-                            .filter (t -> t.getDate().getMonth == now.getMonth() && t.getDate().getYear() == now.getYear())
-                            toList());
+                            .filter (t -> t.getDate().getMonth() == now.getMonth() && t.getDate().getYear() == now.getYear())
+                            .toList());
                     break;
                 case "2":
-                    YearMonth lastMonth = YearMonth.now().minusMonths
+                    YearMonth lastMonth = YearMonth.now().minusMonths(1);
+                    displayTransactions(transactions.stream()
+                            .filter(t -> YearMonth.from(t.getDate()).equals(lastMonth))
+                            .toList());
+                    break;
+                case "3":
+                    displayTransactions(transactions.stream()
+                            .filter(t -> t.getDate().getYear() == now.getYear())
+                            .toList());
+                    break;
+                case "4":
+                    displayTransactions(transactions.stream()
+                            .filter(t -> t.getDate().getYear() == now.getYear() - 1)
+                            .toList());
+                    break;
+                case "5":
+                    System.out.println("Enter vendor name: ");
+                    String vendor = scanner.nextLine().trim();
+                    displayTransactions(transactions.stream()
+                            .filter(t -> t.getVendor().equalsIgnoreCase(vendor))
+                            .toList());
+                    break;
+                case "6":
+                    return;
+                default:
+                    System.out.println("Please make a valid selection");
+
+
 
             }
         }
