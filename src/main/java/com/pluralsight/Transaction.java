@@ -1,13 +1,16 @@
 package com.pluralsight;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 public class Transaction {
-    private String date;
-    private String time;
+    private LocalDate date;
+    private LocalTime time;
     private String description;
     private String vendor;
     private double amount;
 
-    public Transaction(String date, String time, String description, String vendor, double amount) {
+    public Transaction(LocalDate date, LocalTime time, String description, String vendor, double amount) {
         this.date = date;
         this.time = time;
         this.description = description;
@@ -15,19 +18,27 @@ public class Transaction {
         this.amount = amount;
     }
 
-    public String getDate() {
+    public Transaction(String dateStr, String timeStr, String description, String vendor, double amount) {
+        this.date = LocalDate.parse(dateStr);
+        this.time = LocalTime.parse(timeStr);
+        this.description = description;
+        this.vendor = vendor;
+        this.amount = amount;
+    }
+
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
-    public String getTime() {
+    public LocalTime getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(LocalTime time) {
         this.time = time;
     }
 
@@ -55,39 +66,9 @@ public class Transaction {
         this.amount = amount;
     }
 
-
     @Override
     public String toString() {
         return date + "|" + time + "|" + description + "|" + vendor + "|" + amount;
     }
 
-
-
-
-//        final StringBuilder sb = new StringBuilder("TransactionHolder{");
-//        sb.append("date=").append(date);
-//        sb.append(", time=").append(time);
-//        sb.append(", description='").append(description).append('\'');
-//        sb.append(", vendor='").append(vendor).append('\'');
-//        sb.append(", amount=").append(amount);
-//        sb.append('}');
-//        return sb.toString();
-//    }
-
-
-
-
-
-
-
-
-//    public void display() {
-//        System.out.println("""
-//                Welcome! Please make your Selection:
-//                1) Deposit
-//                2) Payment
-//                3) Ledger
-//                4) Exit
-//                """);
-//    }
 }
