@@ -23,12 +23,6 @@ public class App {
         boolean running = true;
 
         while (running) {
-//            System.out.println("Home Menu");
-//            System.out.println("1) Add Deposit");
-//            System.out.println("2) Make Payment");
-//            System.out.println("3) Ledger");
-//            System.out.println("4 Exit");
-//            System.out.println("Enter you choice: ");
 
             System.out.println("""
                     Welcome! PLease make a selection:
@@ -74,7 +68,7 @@ public class App {
         System.out.println("(2) Payment");
         System.out.println("(3) Ledger");
         System.out.println("(4) Exit");
-
+//idk if done right
         ArrayList<Transaction> transactions = readTransactionsFromFile();
         displayTransactions(transactions);
 
@@ -153,46 +147,55 @@ public class App {
     }
 
     private static void writeTransactionToFile(Transaction t) {
-       try {
-           FileWriter filewriter = new FileWriter("transactions.csv", true);
-           BufferedWriter bufferedWriter = new BufferedWriter(filewriter)) {
-           bufferedWriter.write(t.toString());
-           bufferedWriter.newLine();
-           } catch (IOException e) {
-               System.out.println("Error commiting transaction to file");
-               e.printStackTrace();
-           }
-       }
-    }
+        //worked on here, pulled from workbook examples
+        try {
+            // create a FileWriter
+            FileWriter fileWriter = new FileWriter("text.txt", true);
+            // create a BufferedWriter
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            // write to the file
+            bufferedWriter.write("line 1 is here \n");
+            bufferedWriter.write("line 2 is here \n");
+            bufferedWriter.write("line 3 is here \n");
 
-
-    private static void displayTransactions() {
-        Scanner scanner = new Scanner(System.in);
-        boolean running = true;
-
-        while (running) {
-            displayDeposits();
-            System.out.println("Please choose an option");
-            String choice = scanner.nextLine();
-
-            switch (choice) {
-                case "1":
-                    System.out.println("View deposit history?");
-                    displayTransactions();
-                    break;
-                case "2":
-                    System.out.println("Return to main menu?");
-                    // if (choice ==2)
-                    displayMenu();
-                default:
-                    System.out.println("Please make another selection");
-            }
-            //spacing
-            System.out.println();
+            // close the writer
+            bufferedWriter.close();
+        } catch (IOException e) {
+            System.out.println("ERROR: An unexpected error occurred");
+            e.getStackTrace();
         }
 
-
     }
+
+//    private static void displayTransactions() {
+//        Scanner scanner = new Scanner(System.in);
+//        boolean running = true;
+//
+//        while (running) {
+//            displayDeposits();
+//            System.out.println("Please choose an option");
+//            String choice = scanner.nextLine();
+//
+//            switch (choice) {
+//                case "1":
+//                    System.out.println("View deposit history?");
+//                    displayTransactions();
+//                    break;
+//                case "2":
+//                    System.out.println("Return to main menu?");
+//                    displayMenu();
+//                default:
+//                    System.out.println("Please make another selection");
+//            }
+//            //spacing
+//            System.out.println();
+//        }
+//
+//
+//    }
+
+//    private static void displayDeposits() {
+//    }
 
     private static void makePayment() {
         Scanner scanner = new Scanner(System.in);
@@ -212,9 +215,7 @@ public class App {
 
         System.out.println("Payment processed");
 
-
-
-//        while (running) {
+//   /    while (running) {
 //            displayDeposits();
 //            System.out.println("Please choose an option");
 //            int choice = scanner.nextInt();
@@ -334,33 +335,9 @@ public class App {
         }
     }
 
-    private static void displayTransactions() {
-    }
-
-
-//        try {
-//        // create a FileWriter
-//        FileWriter fileWriter = new FileWriter("transactions.csv", true);
-//        // create a BufferedWriter
-//        BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-//        // write to the file
-//        bufferedWriter.write("line 1 is here \n");
-//        bufferedWriter.write("line 2 is here \n");
-//        bufferedWriter.write("line 3 is here \n");
+//    private static void displayTransactions() {
 //
-//        // close the writer
-//        bufferedWriter.close();
-//    } catch (IOException e) {
-//        System.out.println("ERROR: An unexpected error occurred");
-//        e.getStackTrace();
 //    }
-
-
-
-
-
-
-
 
     private static ArrayList<Transaction> filterPayments(ArrayList<Transaction> transactions) {
         //this came from chatgpt when I asked it for help with fixing my code but it doesn't look familiar to me at the moment
@@ -382,31 +359,3 @@ public class App {
 
 
 
-
-
-
-
-//        Scanner scanner = new Scanner(System.in);
-//        boolean running = true;
-//
-//        while (running) {
-//            displayDeposits();
-//            System.out.println("Please choose an option");
-//            int choice = scanner.nextInt();
-//
-//            switch (choice) {
-//                case 1:
-//                    System.out.println("Return to main menu?");
-//                    displayMenu();
-//                case 2:
-//                    System.out.println("Exit");
-//                    System.out.println("Information saved, Goodbye");
-//                    displayMenu();
-//                default:
-//                    System.out.println("Please make another selection");
-//            }
-            //spacing
-//            System.out.println();
-//        }
-//    }
-//}
