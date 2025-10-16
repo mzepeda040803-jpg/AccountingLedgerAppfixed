@@ -59,10 +59,17 @@ public class App {
 
 
     private static void displayTransactions(ArrayList<Transaction> transactions) {
-
-        for (int i = transactions.size() - 1; i >= 0; i--) {
-            System.out.println(transactions.get(i));
+        if (transactions.isEmpty()) {
+            System.out.println("No transactions found");
+        } else {
+            for (Transaction t: transactions) {
+                System.out.println(t);
+            }
         }
+
+//        for (int i = transactions.size() - 1; i >= 0; i--) {
+//            System.out.println(transactions.get(i));
+//        }
     }
 
     private static ArrayList<Transaction> readTransactionsFromFile() {
@@ -194,6 +201,7 @@ public class App {
                     break;
                 case "R":
                     showReports(transactions);
+                    break;
                 case "H":
                     return;
                 default:
@@ -219,6 +227,7 @@ public class App {
             String choice = scanner.nextLine();
 
             LocalDate now = LocalDate.now();
+            LocalTime time = LocalTime.now();
 
             ArrayList<Transaction> results = new ArrayList<>();
 
