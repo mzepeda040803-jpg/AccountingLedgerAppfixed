@@ -1,11 +1,10 @@
 package com.pluralsight;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.sql.SQLOutput;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Pattern;
@@ -34,7 +33,7 @@ public class App {
             System.out.println("""
                     Welcome! PLease make a selection:
                     1) Add Deposit
-                    2) Make Payment
+                    2) Make Payment (Debit)
                     3) Ledger
                     4) Exit""");
 
@@ -84,13 +83,10 @@ public class App {
     }
 
     private static void displayTransactions(ArrayList<Transaction> transactions) {
-        for (int i = transactions.size()-1; i >= 0; i--) {
-            System.out.println(transactions.get(i));
+
+        for (Transaction t: transactions) {
+            System.out.println(t);
         }
-        //rename
-//        for (Transaction exchange: transactions){
-//            System.out.println(transactions);
-//        }
     }
 
     private static ArrayList<Transaction> readTransactionsFromFile() {
@@ -116,7 +112,7 @@ public class App {
 
                 String amountAsString = parts[4];
                 double amount = Double.parseDouble(amountAsString);
-// come back later
+
                 Transaction transaction = new Transaction(date, time, description, vendor, amount);
                 transactions.add(transaction);
 
@@ -190,10 +186,6 @@ public class App {
 
     }
 
-    private static void displayTransactions() {
-        //parse
-    }
-
     private static void makePayment() {
         Scanner scanner = new Scanner(System.in);
 
@@ -245,11 +237,12 @@ public class App {
         ArrayList<Transaction> transactions = readTransactionsFromFile();
 
         System.out.println("""
-                Ledger Menu: Please make a selection 
+                Ledger Menu Options 
                 1) All
                 2) Deposits
                 3) Payments
-                4) Main Menu""");
+                4) Reports
+                5) Main Menu""");
 
         Scanner scanner = new Scanner(System.in);
         String choice = scanner.nextLine().trim().toUpperCase();
@@ -264,7 +257,10 @@ public class App {
                     break;
                 case "3":
                     displayTransactions(filterPayments(transactions));
+                    break;
                 case "4":
+                    showReports(transactions);
+                case "5":
                     return;
                 default:
                     System.out.println("Please make another selection");
@@ -272,6 +268,64 @@ public class App {
             //spacing
             System.out.println();
         }
+
+    private static void showReports(ArrayList<Transaction> transactions) {
+        //came from chat, need help reforming it to school standards
+        while (true) {
+            System.out.println("""
+                    Reports Available
+                    1) Month to Date
+                    2) Previous Month
+                    3) Year to Date
+                    4) Previous Year
+                    5) Search by Vendor
+                    6) Back
+                    Choose an Option""");
+
+            String choice = scanner.nextline();
+
+            LocalDate now = LocalDate.now();
+
+            switch (choice) {
+                case "1":
+                    displayTransactions(transactions.stream()
+                            .filter (t -> t.getDate().getMonth == now.getMonth() && t.getDate().getYear() == now.getYear())
+                            toList());
+                    break;
+                case "2":
+                    YearMonth lastMonth = YearMonth.now().minusMonths
+
+            }
+        }
+    }
+
+    private static void displayTransactions() {
+    }
+
+
+//        try {
+//        // create a FileWriter
+//        FileWriter fileWriter = new FileWriter("transactions.csv", true);
+//        // create a BufferedWriter
+//        BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+//        // write to the file
+//        bufferedWriter.write("line 1 is here \n");
+//        bufferedWriter.write("line 2 is here \n");
+//        bufferedWriter.write("line 3 is here \n");
+//
+//        // close the writer
+//        bufferedWriter.close();
+//    } catch (IOException e) {
+//        System.out.println("ERROR: An unexpected error occurred");
+//        e.getStackTrace();
+//    }
+
+
+
+
+
+
+
 
     private static ArrayList<Transaction> filterPayments(ArrayList<Transaction> transactions) {
         //this came from chatgpt when I asked it for help with fixing my code but it doesn't look familiar to me at the moment
@@ -290,14 +344,6 @@ public class App {
         return deposits;
     }
 }
-
-
-
-
-
-
-
-
 
 
 
