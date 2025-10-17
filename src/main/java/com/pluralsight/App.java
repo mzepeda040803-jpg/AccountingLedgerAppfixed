@@ -193,6 +193,7 @@ public class App {
 
         switch (choice) {
                 case "A":
+                    readTransactionsFromFile();
                    displayTransactions(transactions);
                     break;
                 case "D":
