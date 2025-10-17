@@ -1,6 +1,6 @@
 # Simple Ledger App
 This project demonstrates a simple accounting ledger. It features menu options within menu options.
-The menues include a home screen menue, a ledger menu, a reports menu and a data file called transactions.csv.
+The menus include a home screen menu, a ledger menu, a reports menu and a data file called transactions.csv.
 The program allows you to make deposits, make payments, display all entries in the ledger and generate reports.
 The file contains data organized by date, time, description, vendor, and amount.
 This program also displays the usage of buffered readers and writers, switches, arrays, if and else statements, for loops, and the usage of toString. 
@@ -40,10 +40,11 @@ This include calling data based on month to date, by the previous month, year to
 One piece of code that I found interesting was the constructors and the getters/setters.
 
 Constructor: a method used to create objects from a class.
-Constructors help to set up the obkect's data and is also known as fields or attributes. It's called automatically when you create an object using "new".
-(Theseare the first code set in the picture posted.)
+Constructors help to set up the object's data and is also known as fields or attributes. It's called automatically when you create an object using "new".
+(These are the first set of code in the picture posted.)
 
 Getter: allows you to read the value of a variable and return that value.
 Setter: allows you to set and change the value of a variable in a class; 
 Getters/Setters describe an object and store the values that the object needs to know.
+(These are the second set of code in the picture posted.)
 
