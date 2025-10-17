@@ -27,7 +27,7 @@ The ledger contains its own menu that can read through a csv file containing tra
 
 I found this part interesting because while it took me some time to figure it out, I enjoyed putting together the methods.
 
-#![](C:\Users\Student\Pictures\Screenshots\Screenshot 2025-10-16 233245.png)
+#![image of constructors and setters and getters](C:\Users\Student\Pictures\Screenshots\Screenshot 2025-10-16 233245.png)
+
 
 I do, however, enjoy making constructors and setters/getters.
-<img src="C:\Users\Student\Pictures\Screenshots\Screenshot 2025-10-16 233245.png"/>
