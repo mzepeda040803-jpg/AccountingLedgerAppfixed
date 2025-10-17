@@ -1,5 +1,5 @@
 # Simple Ledger App
-TThis project demonstrates a simple accounting ledger. It features menu options within menu options. The menus include a home screen menu, a ledger menu, a reports menu and a data file called transactions.csv. The program allows you to make deposits, make payments, display all entries in the ledger and generate reports. The file contains data organized by date, time, description, vendor, and amount. This program also displays the usage of buffered readers and writers, switches, arrays, if and else statements, for loops, and the usage of toString.
+This project demonstrates a simple accounting ledger. It features menu options within menu options. The menus include a home screen menu, a ledger menu, a reports menu and a data file called transactions.csv. The program allows you to make deposits, make payments, display all entries in the ledger and generate reports. The file contains data organized by date, time, description, vendor, and amount. This program also displays the usage of buffered readers and writers, switches, arrays, if and else statements, for loops, and the usage of toString.
 
 #Reports 
 The reports feature generates data from the csv file that can be organized by year/month/day, the previous year, a search by vendor function and the option to leave and return to the previous menu.
