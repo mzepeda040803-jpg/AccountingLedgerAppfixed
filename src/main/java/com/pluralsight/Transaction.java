@@ -18,13 +18,13 @@ public class Transaction {
         this.amount = amount;
     }
 
-    public Transaction(String dateStr, String timeStr, String description, String vendor, double amount) {
-        this.date = LocalDate.parse(dateStr);
-        this.time = LocalTime.parse(timeStr);
-        this.description = description;
-        this.vendor = vendor;
-        this.amount = amount;
-    }
+//    public Transaction(String dateStr, String timeStr, String description, String vendor, double amount) {
+//        this.date = LocalDate.parse(dateStr);
+//        this.time = LocalTime.parse(timeStr);
+//        this.description = description;
+//        this.vendor = vendor;
+//        this.amount = amount;
+//    }
 
     public LocalDate getDate() {
         return date;
