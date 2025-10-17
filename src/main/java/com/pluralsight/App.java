@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.YearMonth;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
@@ -81,8 +82,10 @@ public class App {
             String line;
 
             bufferedReader.readLine();
+//            System.out.println("spomething");
 
             while ((line = bufferedReader.readLine()) != null){
+//                System.out.println("something 2");
                 String[] parts = line.split(Pattern.quote("|"));
 
                 LocalDate date = LocalDate.parse(parts[0]);
@@ -210,8 +213,8 @@ public class App {
             System.out.println();
         }
 
+
     private static void showReports(ArrayList<Transaction> transactions) {
-        //came from chat, need help reforming it to school standards
         Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.println("""
@@ -233,53 +236,19 @@ public class App {
 
             switch (choice) {
                 case "1":
-                    for (Transaction t: transactions) {
-                        LocalDate tDate = t.getDate();
-                        if (tDate.getYear() == now.getYear() && tDate.getMonth() == now.getMonth()) {
-                            results.add(t);
-                        }
-                    }
-                    displayTransactions(results);
+                    showMonthToDate(transactions);
                     break;
                 case "2":
-                    YearMonth lastMonth = YearMonth.from(now).minusMonths(1);
-                    for (Transaction t: transactions) {
-                        LocalDate tDate = t.getDate();
-                        YearMonth tMonth = YearMonth.from(tDate);
-                        if (tMonth.equals(lastMonth)) {
-                            results.add(t);
-                        }
-                    }
-                    displayTransactions(results);
+                    showPreviousMonth(transactions);
                     break;
                 case "3":
-                    for (Transaction t: transactions) {
-                        LocalDate tDate = t.getDate();
-                        if (tDate.getYear() == now.getYear()) {
-                            results.add(t);
-                        }
-                    }
-                    displayTransactions(results);
+                    showYearToDate(transactions);
                     break;
                 case "4":
-                    int lastYear = now.getYear() - 1;
-                    for (Transaction t: transactions) {
-                        LocalDate tDate = t.getDate();
-                        if (tDate.getYear() ==lastYear) {
-                            results.add(t);
-                        }
-                    }
-                    displayTransactions(results);
+                    showPreviousYear(transactions);
                     break;
                 case "5":
-                    System.out.println("Enter vendor name: ");
-                    String vendor = scanner.nextLine().trim();
-                    for (Transaction t: transactions) {
-                        if (t.getVendor().equalsIgnoreCase(vendor)) {
-                            results.add(t);
-                        }
-                    }
-                    displayTransactions(results);
+                    showByVendor(transactions);
                     break;
                 case "6":
                     return;
@@ -295,6 +264,134 @@ public class App {
     }
 
 
+    private static void showByVendor(ArrayList<Transaction> transactions) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter vendor name: ");
+        String vendorInput = scanner.nextLine().trim();
+
+        ArrayList<Transaction> results = new ArrayList<>();
+
+        for (Transaction t: transactions) {
+            String transactionVendor = t.getVendor();
+
+            if (transactionVendor.equalsIgnoreCase(vendorInput)) {
+                results.add(t);
+            }
+        }
+
+        if (results.isEmpty()) {
+            System.out.println("No transactions found for vendor: " + vendorInput);
+        } else {
+            System.out.println("Found " + results.size() + " transaction(s) for vendor \"" + vendorInput + "\":\n");
+
+            for (Transaction t : results) {
+                System.out.println(t);
+            }
+        }
+
+    }
+
+    private static void showPreviousYear(ArrayList<Transaction> transactions) {
+        System.out.println("Generating Previous Year Report");
+
+        LocalDate today = LocalDate.now();
+        int lastYear = today.getYear() - 1;
+
+        ArrayList<Transaction> results = new ArrayList<>();
+
+        for (Transaction t: transactions) {
+            LocalDate transactionDate = t.getDate();
+
+            if (transactionDate.getYear() == lastYear) {
+                results.add(t);
+            }
+        }
+
+        if (results.isEmpty()) {
+            System.out.println("No transactions found for the previous year");
+
+        } else {
+            System.out.println("Found " + results.size() + " transaction(s) from" + lastYear + ":\n");
+
+            for (Transaction t: results) {
+                System.out.println(t);
+            }
+        }
+    }
+
+    private static void showYearToDate(ArrayList<Transaction> transactions) {
+        System.out.println("Generating Year to Date Report");
+
+        LocalDate today = LocalDate.now();
+        int currentYear = today.getYear();
+
+        ArrayList<Transaction> results = new ArrayList<>();
+
+        for (Transaction t: transactions) {
+            LocalDate transactionDate = t.getDate();
+
+            if (transactionDate.getYear() == currentYear) {
+                results.add(t);
+            }
+        }
+
+        if (results.isEmpty()) {
+            System.out.println("No transactions found for the current year");
+        } else {
+            System.out.println("Found " + results.size() + " transaction(s) this year:\n");
+
+            for (Transaction t: results) {
+                System.out.println(t);
+            }
+        }
+    }
+
+    private static void showPreviousMonth(ArrayList<Transaction> transactions) {
+        System.out.println("Generating Previous Month Report");
+
+        LocalDate today = LocalDate.now();
+        YearMonth lastMonth = YearMonth.from(today).minusMonths(1);
+
+        ArrayList<Transaction> results = new ArrayList<>();
+
+        for (Transaction t: transactions) {
+            LocalDate transactionDate = t.getDate();
+            YearMonth transactionMonth = YearMonth.from(transactionDate);
+
+            if (results.isEmpty()) {
+                System.out.println("No transactions found for last month");
+            } else {
+                System.out.println("Found " + results.size() + "transaction(s) from last month: \n");
+
+                for (Transaction transaction: results) {
+                    System.out.println(t);
+                }
+            }
+        }
+    }
+
+    private static void showMonthToDate(ArrayList<Transaction> transactions) {
+        System.out.println("Month to Date Report");
+
+        LocalDate today = LocalDate.now();
+        ArrayList<Transaction> results = new ArrayList<>();
+        for (Transaction t: transactions) {
+            LocalDate transactionDate = t.getDate();
+            if (transactionDate.getYear() == today.getYear() &&
+                    transactionDate.getMonth() == today.getMonth()) {
+                results.add(t);
+            }
+        }
+        if (results.isEmpty()) {
+            System.out.println("No transactions for this month");
+        } else {
+            System.out.println("Found " + results.size() + " transaction(s) for this month: \n");
+        }
+        for (Transaction t: results) {
+            System.out.println(t);
+        }
+    }
+
     private static ArrayList<Transaction> filterPayments(ArrayList<Transaction> transactions) {
         //this came from chatgpt when I asked it for help with fixing my code but it doesn't look familiar to me at the moment
         ArrayList<Transaction> payments = new ArrayList<>();
@@ -303,6 +400,7 @@ public class App {
         }
         return payments;
     }
+
     private static ArrayList<Transaction> filterDeposits(ArrayList<Transaction> transactions) {
         //this came from chatgpt when I asked it for help with fixing my code
         ArrayList<Transaction> deposits = new ArrayList<>();
@@ -312,6 +410,7 @@ public class App {
         return deposits;
     }
 }
+
 
 
 
