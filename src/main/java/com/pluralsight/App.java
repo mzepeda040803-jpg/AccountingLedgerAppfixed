@@ -127,9 +127,6 @@ public class App {
         LocalTime time = LocalTime.now();
 
 
-//        LocalDate date = LocalDate.parse(LocalDate.now().toString());
-//        LocalTime time = LocalTime.parse(LocalTime.now().toString());
-
         Transaction deposit = new Transaction(date, time, description, vendor, amount);
         writeTransactionToFile(deposit);
 
@@ -138,9 +135,10 @@ public class App {
     }
 
     private static void writeTransactionToFile(Transaction t) {
+
         try {
 
-            FileWriter fileWriter = new FileWriter("transactions.csv", true);
+            Writer fileWriter = new FileWriter("transactions.csv", true);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 
             bufferedWriter.write(t.toString());
@@ -170,9 +168,6 @@ public class App {
         LocalDate date = LocalDate.now();
         LocalTime time = LocalTime.now();
 
-
-//        String date = LocalDate.now().toString();
-//        String time = LocalTime.now().toString();
 
         Transaction payment = new Transaction(date, time, description, vendor, -Math.abs(amount));
         writeTransactionToFile(payment);
@@ -232,11 +227,6 @@ public class App {
                     Choose an Option""");
 
             String choice = scanner.nextLine();
-
-     //       LocalDate date = LocalDate.now();
-     //       LocalTime time = LocalTime.now();
-
-     //       ArrayList<Transaction> results = new ArrayList<>();
 
             switch (choice) {
                 case "1":
