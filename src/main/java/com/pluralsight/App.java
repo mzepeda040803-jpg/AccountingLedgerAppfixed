@@ -68,9 +68,6 @@ public class App {
             }
         }
 
-//        for (int i = transactions.size() - 1; i >= 0; i--) {
-//            System.out.println(transactions.get(i));
-//        }
     }
 
     private static ArrayList<Transaction> readTransactionsFromFile() {
@@ -82,10 +79,8 @@ public class App {
             String line;
 
             bufferedReader.readLine();
-//            System.out.println("spomething");
 
             while ((line = bufferedReader.readLine()) != null){
-//                System.out.println("something 2");
                 String[] parts = line.split(Pattern.quote("|"));
 
                 LocalDate date = LocalDate.parse(parts[0]);
@@ -128,8 +123,12 @@ public class App {
         double amount = scanner.nextDouble();
         scanner.nextLine();
 
-        LocalDate date = LocalDate.parse(LocalDate.now().toString());
-        LocalTime time = LocalTime.parse(LocalTime.now().toString());
+        LocalDate date = LocalDate.now();
+        LocalTime time = LocalTime.now();
+
+
+//        LocalDate date = LocalDate.parse(LocalDate.now().toString());
+//        LocalTime time = LocalTime.parse(LocalTime.now().toString());
 
         Transaction deposit = new Transaction(date, time, description, vendor, amount);
         writeTransactionToFile(deposit);
@@ -168,8 +167,12 @@ public class App {
         double amount = scanner.nextDouble();
         scanner.nextLine();
 
-        String date = LocalDate.now().toString();
-        String time = LocalTime.now().toString();
+        LocalDate date = LocalDate.now();
+        LocalTime time = LocalTime.now();
+
+
+//        String date = LocalDate.now().toString();
+//        String time = LocalTime.now().toString();
 
         Transaction payment = new Transaction(date, time, description, vendor, -Math.abs(amount));
         writeTransactionToFile(payment);
@@ -180,6 +183,7 @@ public class App {
 
     private static void ledger() {
         ArrayList<Transaction> transactions = readTransactionsFromFile();
+        Scanner scanner = new Scanner(System.in);
 
         System.out.println("""
                 Ledger Menu
@@ -189,7 +193,7 @@ public class App {
                 R) Reports
                 H) Main Menu""");
 
-        Scanner scanner = new Scanner(System.in);
+
         String choice = scanner.nextLine().trim().toUpperCase();
 
         switch (choice) {
@@ -229,10 +233,10 @@ public class App {
 
             String choice = scanner.nextLine();
 
-            LocalDate now = LocalDate.now();
-            LocalTime time = LocalTime.now();
+     //       LocalDate date = LocalDate.now();
+     //       LocalTime time = LocalTime.now();
 
-            ArrayList<Transaction> results = new ArrayList<>();
+     //       ArrayList<Transaction> results = new ArrayList<>();
 
             switch (choice) {
                 case "1":
@@ -257,8 +261,8 @@ public class App {
                     System.out.println("Error, please make another selection");
 
             }
-            results.clear();
-            System.out.println();
+     //       results.clear();
+            System.out.println("-----------");
 
         }
     }
@@ -358,14 +362,18 @@ public class App {
             LocalDate transactionDate = t.getDate();
             YearMonth transactionMonth = YearMonth.from(transactionDate);
 
-            if (results.isEmpty()) {
-                System.out.println("No transactions found for last month");
-            } else {
-                System.out.println("Found " + results.size() + "transaction(s) from last month: \n");
+            if (transactionMonth.equals(lastMonth)) {
+                results.add(t);
+            }
+        }
 
-                for (Transaction transaction: results) {
-                    System.out.println(t);
-                }
+        if (results.isEmpty()) {
+            System.out.println("No transactions found for last month");
+        } else {
+            System.out.println("Found " + results.size() + " transaction(s) from last month: \n");
+
+            for (Transaction transaction: results) {
+                    System.out.println(transaction);
             }
         }
     }
