@@ -29,5 +29,6 @@ I found this part interesting because while it took me some time to figure it ou
 
 #![image of constructors and setters and getters](C:\Users\Student\Pictures\Screenshots\Screenshot 2025-10-16 233245.png)
 
+<img width="1080" height="306" alt="Screenshot 2025-10-16 233245" src="https://github.com/user-attachments/assets/6efd3d1f-7702-4d84-a65b-9114fae7f523" />
 
 I do, however, enjoy making constructors and setters/getters.
