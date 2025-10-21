@@ -392,7 +392,7 @@ public class App {
     }
 
     private static ArrayList<Transaction> filterPayments(ArrayList<Transaction> transactions) {
-        //this came from chatgpt when I asked it for help with fixing my code but it doesn't look familiar to me at the moment
+
         ArrayList<Transaction> payments = new ArrayList<>();
         for (Transaction t : transactions) {
             if (t.getAmount() < 0) payments.add(t);
@@ -401,7 +401,7 @@ public class App {
     }
 
     private static ArrayList<Transaction> filterDeposits(ArrayList<Transaction> transactions) {
-        //this came from chatgpt when I asked it for help with fixing my code
+
         ArrayList<Transaction> deposits = new ArrayList<>();
         for (Transaction t : transactions) {
             if (t.getAmount() > 0) deposits.add(t);
